@@ -1,7 +1,6 @@
 ﻿# docker-compose.yml
 name: DevExLead_CLI
 services:
-
   #https://hub.docker.com/r/coredns/coredns/tags
   coredns:
     image: coredns/coredns:1.12.0
@@ -14,7 +13,6 @@ services:
       - "53:53/tcp"
     networks:
       - my-network
-
 
   #https://hub.docker.com/_/nginx
   nginx:
@@ -48,7 +46,7 @@ services:
     ports:
       - "52004:1433"
     volumes:
-      - /var/opt/mssql
+      - local_mssql_data:/var/opt/mssql
       - ./sqlserver/backup:/var/opt/mssql/backup
     environment:
       - ACCEPT_EULA=Y
@@ -96,8 +94,8 @@ services:
   #     - local-network
 
   # grafana:
-  #   image: grafana/grafana:latest 
-  #   container_name: Grafana 
+  #   image: grafana/grafana:latest
+  #   container_name: Grafana
   #   ports:
   #     - "52005:3000"
   #   volumes:
@@ -105,7 +103,7 @@ services:
   #     - ./provisioning:/etc/grafana/provisioning
   #   environment:
   #     - GF_SECURITY_ADMIN_USER=admin
-  #     - GF_SECURITY_ADMIN_PASSWORD=admin 
+  #     - GF_SECURITY_ADMIN_PASSWORD=admin
   #     - GF_USERS_ALLOW_SIGN_UP=false
   #     - GF_AUTH_ANONYMOUS_ENABLED=false
   #   networks:
@@ -137,3 +135,7 @@ services:
 networks:
   my-network:
     driver: bridge
+
+volumes:
+  local_mssql_data:
+    name: local-mssql-data
