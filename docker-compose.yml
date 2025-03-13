@@ -134,6 +134,13 @@ services:
   #     timeout: 10s
   #     retries: 3
 
+  email:
+      image: maildev/maildev
+      ports:
+        - "1080:1080"
+        - "1025:1025"
+      restart: unless-stopped
+
 networks:
   my-network:
     driver: bridge
